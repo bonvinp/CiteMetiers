@@ -3,8 +3,8 @@
 // put your code here
 // Set up database root credentials
 $host = 'localhost';
-$user = 'm151admin';
-$pass = 'm151admin';
+$user = 'root';
+$pass = 'root';
 // ---- Do not edit below this ----
 // Misc settings
 header('Content-type: text/plain; Charset=UTF-8');
