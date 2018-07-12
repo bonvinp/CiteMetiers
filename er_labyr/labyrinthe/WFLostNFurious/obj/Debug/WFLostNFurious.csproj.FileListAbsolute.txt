@@ -1,0 +1,10 @@
+/Users/bonbon/Sites/CiteMetiers/er_labyr/labyrinthe/WFLostNFurious/bin/Debug/WFLostNFurious.exe.config
+/Users/bonbon/Sites/CiteMetiers/er_labyr/labyrinthe/WFLostNFurious/bin/Debug/WFLostNFurious.exe
+/Users/bonbon/Sites/CiteMetiers/er_labyr/labyrinthe/WFLostNFurious/bin/Debug/WFLostNFurious.pdb
+/Users/bonbon/Sites/CiteMetiers/er_labyr/labyrinthe/WFLostNFurious/obj/Debug/WFLostNFurious.csprojResolveAssemblyReference.cache
+/Users/bonbon/Sites/CiteMetiers/er_labyr/labyrinthe/WFLostNFurious/obj/Debug/WFLostNFurious.frmMain.resources
+/Users/bonbon/Sites/CiteMetiers/er_labyr/labyrinthe/WFLostNFurious/obj/Debug/WFLostNFurious.Properties.Resources.resources
+/Users/bonbon/Sites/CiteMetiers/er_labyr/labyrinthe/WFLostNFurious/obj/Debug/WFLostNFurious.csproj.GenerateResource.cache
+/Users/bonbon/Sites/CiteMetiers/er_labyr/labyrinthe/WFLostNFurious/obj/Debug/WFLostNFurious.csproj.CoreCompileInputs.cache
+/Users/bonbon/Sites/CiteMetiers/er_labyr/labyrinthe/WFLostNFurious/obj/Debug/WFLostNFurious.exe
+/Users/bonbon/Sites/CiteMetiers/er_labyr/labyrinthe/WFLostNFurious/obj/Debug/WFLostNFurious.pdb
