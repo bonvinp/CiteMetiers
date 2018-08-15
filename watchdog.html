@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Show datas pushed by another device</title>
+    <meta charset="UTF-8">
+
+  </head>
+  <body>
+    <div id="cablesDatas">Here is where the server sent data will appear</div>
+    <div id="labyDatas">Here is where the server sent data will appear</div>
+    <script>
+      function receiveDataFromCables() {
+          var ajaxObject = new XMLHttpRequest();
+          ajaxObject.open("GET", "http://localhost/~bonbon/CiteMetiers/send_cables_datas.php");
+          ajaxObject.onload = function () {
+              if (ajaxObject.readyState === 4 || ajaxObject.status === 200)
+              {
+                  document.getElementById("serverData").innerHTML = ajaxObject.responseText;
+                  receiveDataFromCables();
+              }
+          }
+          ajaxObject.send();
+      }
+      function receiveDataFromLaby() {
+          var ajaxObject = new XMLHttpRequest();
+          ajaxObject.open("GET", "http://localhost/~bonbon/CiteMetiers/send_laby_datas.php");
+          ajaxObject.onload = function () {
+              if (ajaxObject.readyState === 4 || ajaxObject.status === 200)
+              {
+                  document.getElementById("serverData").innerHTML = ajaxObject.responseText;
+                  receiveDataFromLaby();
+              }
+          }
+          ajaxObject.send();
+      }
+      receiveDataFromCables();
+    </script>
+  </body>
+</html>
