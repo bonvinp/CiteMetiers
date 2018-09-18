@@ -1,0 +1,61 @@
+body {
+  background: #272828;
+  border-top: 5px solid #35c2ff;
+  color: white;
+}
+
+header {
+  background: #173463;
+  padding: 25px;
+}
+
+header h1 {
+  padding: 0px;
+  margin: 0px;
+}
+
+header button.btn {
+  border-radius: 0px;
+  border: none;
+}
+
+#riddles {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#riddles .raspberry-block {
+  background: #3e3f3f;
+  padding: 10px;
+}
+
+#riddles .raspberry-block h2 {
+  margin-bottom: 15px;
+}
+
+#riddles .raspberry-block span {
+  font-size: 12px;
+}
+
+#riddles .raspberry-block.raspberry h2{
+  margin-top: 10px;
+}
+
+#riddles .raspberry-block.raspberry {
+  height: 85px;
+  max-height: 85px;
+}
+
+.chevron {
+  padding-top: 2.7rem;
+  font-size: 5rem;
+}
+
+.riddle {
+  margin: 10px 0px 10px 0px;
+}
+
+.riddle-full-height {
+  height: 174px;
+  max-height: 174px;
+}
