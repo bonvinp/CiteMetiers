@@ -9,7 +9,7 @@ while(!connection_aborted())//this function checks if user is online.
     {
         $new_data = rand(0, 1000);
         echo "Update Found ($new_data)";
-        sleep(1);
+        sleep(0.2);
         ob_get_flush();
         flush();//if it sees that user is offline (fails to send response) then it terminates the script if ignore_User_About is not set to True. Here it will ignore the failed response as its set to True.
         exit;

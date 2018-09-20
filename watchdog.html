@@ -10,11 +10,13 @@
     <div id="cablesDatas">Here is where the server sent data will appear</div>
     <h1>Laby</h1>
     <div id="labyDatas">Here is where the server sent data will appear</div>
+    <h1>Python</h1>
+    <div id="pythonDatas">Python Here is where the server sent data will appear</div>
     <script>
       
       function receiveDataFromCables() {
           var ajaxObject = new XMLHttpRequest();
-          ajaxObject.open("GET", "http://localhost/~bonbon/CiteMetiers/send_cables_datas.php");
+          ajaxObject.open("GET", "http://localhost/CiteMetiers/send_cables_datas.php");
           ajaxObject.onload = function () {
               if (ajaxObject.readyState === 4 || ajaxObject.status === 200)
               {
@@ -26,8 +28,8 @@
       }
       
       function receiveDataFromLaby() {
-          var ajaxObject = new XMLHttpRequest();
-          ajaxObject.open("GET", "http://localhost/~bonbon/CiteMetiers/send_laby_datas.php");
+          var ajaxObject = new XMLHttpRequest()
+          ajaxObject.open("GET", "http://localhost/CiteMetiers/send_laby_datas.php");
           ajaxObject.onload = function () {
               if (ajaxObject.readyState === 4 || ajaxObject.status === 200)
               {
@@ -37,9 +39,23 @@
           }
           ajaxObject.send();
       }
+
+      function receiveDataFromPython() {
+          var ajaxObject = new XMLHttpRequest()
+          ajaxObject.open("GET", "http://localhost/CiteMetiers/fastcgi.py");
+          ajaxObject.onload = function () {
+              if (ajaxObject.readyState === 4 || ajaxObject.status === 200)
+              {
+                  document.getElementById("pythonDatas").innerHTML = ajaxObject.responseText;
+                  receiveDataFromLaby();
+              }
+          }
+          ajaxObject.send();
+      }
       
       receiveDataFromCables();
       receiveDataFromLaby();
+      receiveDataFromPython();
     </script>
   </body>
 </html>
