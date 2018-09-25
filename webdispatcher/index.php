@@ -23,13 +23,15 @@ foreach (getInfoGameInProgress() as $key => $donnees)
 	<br/>
 <?php
 }
+/*
 checkTime();
+
 foreach (getInfoGameSet() as $key => $value) {
   echo "<br/>";
   echo $value['indice1'];
   echo "<br/>";
   echo $value['indice2'];
-}
+}*/
 ?>
 <form action="press.php" methodFR="post">
 <p>

@@ -28,7 +28,7 @@ function getConnexion(){
 
 function getNbGame(){
   $connexion = getConnexion();
-  $requete = $connexion->prepare("SELECT count(idGame) FROM games");
+  $requete = $connexion->prepare("SELECT count(idGame) FROM gameset");
   $requete->execute();
   $nbGame = $requete->fetch(PDO::FETCH_ASSOC);
   return $nbGame['count(idGame)'];
@@ -39,7 +39,7 @@ function startNewGame(){
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('INSERT INTO `logs` (`timeStart`, `timeFirstStep`, `timeSecondeStep`, `timeEnd`, `idGame`) VALUES (now(), NULL, NULL, NULL,  :id);');
+    $requete = $connexion->prepare('INSERT INTO `gameInProgress` (`timeStart`, `timeFirstStep`, `timeSecondeStep`, `timeEnd`, `idGame`) VALUES (now(), NULL, NULL, NULL,  :id);');
     $requete->bindParam(':id', rand(1, $nbGame), PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
@@ -54,7 +54,7 @@ function startNewGame(){
 
 function findGameInProgress(){
   $connexion = getConnexion();
-  $requete = $connexion->prepare("SELECT idLog FROM logs ORDER BY idLog DESC LIMIT 1");
+  $requete = $connexion->prepare("SELECT idLog FROM gameInProgress ORDER BY idLog DESC LIMIT 1");
   $requete->execute();
   $idGameInProgress = $requete->fetch(PDO::FETCH_ASSOC);
   return $idGameInProgress['idLog'];
@@ -65,7 +65,7 @@ function validFirstStep(){
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `logs` SET `timeFirstStep` = now() WHERE `idLog` = :id');
+    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeFirstStep` = now() WHERE `idLog` = :id');
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
@@ -83,7 +83,7 @@ function validSecondeStep(){
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `logs` SET `timeSecondeStep` = now() WHERE `idLog` = :id');
+    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeSecondeStep` = now() WHERE `idLog` = :id');
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
@@ -101,7 +101,7 @@ function validEndStep(){
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `logs` SET `timeEnd` = now() WHERE `idLog` = :id');
+    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeEnd` = now() WHERE `idLog` = :id');
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
@@ -117,7 +117,7 @@ function validEndStep(){
 function getInfoGameInProgress(){
   $connexion = getConnexion();
   $idGameInProgress= findGameInProgress();
-  $requete = $connexion->prepare('SELECT * FROM logs WHERE idLog = :id');
+  $requete = $connexion->prepare('SELECT * FROM gameInProgress WHERE idLog = :id');
   $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
   $requete->execute();
   $infoGameInProgress = $requete->fetchAll(PDO::FETCH_ASSOC);
@@ -129,7 +129,7 @@ function giveUp(){
   $idGameInProgress= findGameInProgress();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `logs` SET `success` = 0 WHERE `idLog` = :id');
+    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `success` = 0 WHERE `idLog` = :id');
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
@@ -163,7 +163,7 @@ function getInfoGameSet(){
   {
       $idGame = $donnees['idGame'];
   }
-  $requete = $connexion->prepare('SELECT * FROM games WHERE idGame = :id');
+  $requete = $connexion->prepare('SELECT * FROM gameset WHERE idGame = :id');
   $requete->bindParam(':id', $idGame, PDO::PARAM_INT);
   $requete->execute();
   $infoGameInProgress = $requete->fetchAll(PDO::FETCH_ASSOC);
