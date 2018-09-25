@@ -1,4 +1,9 @@
 <?php
+/*
+  Author      : Guillaume Pin
+  Date        : 25.09.2018
+  Description : data management
+*/
 require("PDO.php");
 ?>
 <html>
@@ -17,6 +22,13 @@ foreach (getInfoGameInProgress() as $key => $donnees)
 	<b><?php echo "Valeur de la partie : ".$donnees['idGame']; ?></b></br>
 	<br/>
 <?php
+}
+checkTime();
+foreach (getInfoGameSet() as $key => $value) {
+  echo "<br/>";
+  echo $value['indice1'];
+  echo "<br/>";
+  echo $value['indice2'];
 }
 ?>
 <form action="press.php" methodFR="post">
@@ -37,6 +49,11 @@ foreach (getInfoGameInProgress() as $key => $donnees)
 <form action="end.php" methodFR="post">
 <p>
     <input type="submit" value="Fin" />
+</p>
+</form>
+<form action="giveUp.php" methodFR="post">
+<p>
+    <input type="submit" value="Give Up" />
 </p>
 </form>
 </body>

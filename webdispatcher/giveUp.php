@@ -5,5 +5,5 @@
   Description : data management
 */
 require("PDO.php");
-validFirstStep();
+giveUp();
 ?>

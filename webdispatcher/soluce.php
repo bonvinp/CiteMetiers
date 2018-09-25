@@ -5,5 +5,8 @@
   Description : data management
 */
 require("PDO.php");
-validFirstStep();
-?>
+foreach (getInfoGameSet() as $key => $value) {
+  echo $value['indice1'];
+  echo $value['indice2'];
+}
+ ?>
