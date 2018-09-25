@@ -24,7 +24,8 @@ header button.btn {
   text-align: center;
 }
 
-#riddles .raspberry-block {
+#riddles .raspberry-block,
+#riddles .webapp-block {
   background: #3e3f3f;
 }
 
@@ -36,21 +37,28 @@ header button.btn {
   margin-top: 35px;
 }
 
+#riddles .webapp-text {
+  margin-top: 55px;
+}
+
 #riddles .raspberry {
   height: 85px;
   line-height: 85px;
   background: #3e3f3f;
 }
 
-#riddles .raspberry .in-progress {
+#riddles .raspberry .in-progress,
+#riddles .webapp-text .in-progress {
   color: #ff9e49;
 }
 
-#riddles .raspberry .done {
+#riddles .raspberry .done,
+#riddles .webapp-text .done {
   color: #a7f246;
 }
 
-#riddles .raspberry .error {
+#riddles .raspberry .error,
+#riddles .webapp-text .error {
   color: #e52d2d;
 }
 
@@ -64,6 +72,20 @@ header button.btn {
 }
 
 .chevron {
-  margin-top: 2.7rem;
+  margin-top: 3.5rem;
   font-size: 5rem;
+}
+
+#timer {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  text-align: center;
+  right: 0px;
+  bottom: 0px;
+  background: #173463;
+  line-height: 200px;
+  font-size: 3em;
+  border-top: 3px solid white;
+  border-left: 3px solid white;
 }
