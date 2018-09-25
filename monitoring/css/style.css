@@ -26,36 +26,44 @@ header button.btn {
 
 #riddles .raspberry-block {
   background: #3e3f3f;
-  padding: 10px;
-}
-
-#riddles .raspberry-block h2 {
-  margin-bottom: 15px;
 }
 
 #riddles .raspberry-block span {
   font-size: 12px;
 }
 
-#riddles .raspberry-block.raspberry h2{
-  margin-top: 10px;
+#riddles .raspberry-text {
+  margin-top: 35px;
 }
 
-#riddles .raspberry-block.raspberry {
+#riddles .raspberry {
   height: 85px;
-  max-height: 85px;
+  line-height: 85px;
+  background: #3e3f3f;
 }
 
-.chevron {
-  padding-top: 2.7rem;
-  font-size: 5rem;
+#riddles .raspberry .in-progress {
+  color: #ff9e49;
 }
 
-.riddle {
-  margin: 10px 0px 10px 0px;
+#riddles .raspberry .done {
+  color: #a7f246;
+}
+
+#riddles .raspberry .error {
+  color: #e52d2d;
+}
+
+#riddles .raspberry h2 {
+  line-height: 85px;
 }
 
 .riddle-full-height {
-  height: 174px;
-  max-height: 174px;
+  height: 186px;
+  max-height: 186px;
+}
+
+.chevron {
+  margin-top: 2.7rem;
+  font-size: 5rem;
 }
