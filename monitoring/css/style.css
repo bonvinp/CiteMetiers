@@ -77,7 +77,7 @@ header button.btn {
 }
 
 #timer {
-  position: absolute;
+  position: fixed;
   width: 300px;
   height: 200px;
   text-align: center;
