@@ -10,11 +10,12 @@ require("PDO.php");
 <head>
 </head>
 <body>
+
 <?php
 foreach (getInfoGameInProgress() as $key => $donnees)
 {
   ?>
-  <h1><?php echo "Numéro de partie : ".$donnees['idLog']; ?></h1></br>
+  <h1><?php echo "Numéro de partie : ".$donnees['idGameInProgress']; ?></h1></br>
   <b><?php echo "Début de la partie : ".$donnees['timeStart']; ?></b></br>
   <b><?php echo "Validation de la première étape : ".$donnees['timeFirstStep']; ?></b></br>
   <b><?php echo "Validation de la deuxième étape : ".$donnees['timeSecondeStep']; ?></b></br>
@@ -23,17 +24,8 @@ foreach (getInfoGameInProgress() as $key => $donnees)
 	<br/>
 <?php
 }
-/*
-checkTime();
-
-foreach (getInfoGameSet() as $key => $value) {
-  echo "<br/>";
-  echo $value['indice1'];
-  echo "<br/>";
-  echo $value['indice2'];
-}*/
 ?>
-<form action="press.php" methodFR="post">
+<form action="start.php" methodFR="post">
 <p>
     <input type="submit" value="Start" />
 </p>
