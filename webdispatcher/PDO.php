@@ -4,6 +4,7 @@
   Date        : 25.09.2018
   Description : data management
 */
+
 DEFINE('DB_HOST', "127.0.0.1");
 DEFINE('DB_NAME', "ESCAPEGAME");
 DEFINE('DB_USER', "root");
@@ -43,7 +44,6 @@ function startNewGame(){
     $requete->bindParam(':id', rand(1, $nbGame), PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
-    header('Location: index.php');
   }
   catch (Exception $e)
   {
@@ -69,7 +69,6 @@ function validFirstStep(){
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
-    header('Location: index.php');
   }
   catch (Exception $e)
   {
@@ -87,7 +86,6 @@ function validSecondeStep(){
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
-    header('Location: index.php');
   }
   catch (Exception $e)
   {
@@ -105,13 +103,13 @@ function validEndStep(){
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
-    header('Location: index.php');
   }
   catch (Exception $e)
   {
     $connexion->rollback();
     echo "Error -> ".$e;
   }
+  checkTime();
 }
 
 function getInfoGameInProgress(){
@@ -133,7 +131,6 @@ function giveUp(){
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
-    header('Location: index.php');
   }
   catch (Exception $e)
   {
