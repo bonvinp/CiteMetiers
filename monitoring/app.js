@@ -1,14 +1,10 @@
 document.getElementById("playParty").addEventListener("click", function(e){
-  Start();
+  StartTimer();
   StartVideo();
 });
 
-document.getElementById("stopParty").addEventListener("click", function(e){
-  Stop();
-});
-
 document.getElementById("resetParty").addEventListener("click", function(e){
-  End();
+  EndTimer();
   StartVideo(false);
 });
 
@@ -17,33 +13,33 @@ const ONESECOND = 1;
 let time = TIMETOWORK;
 let timer;
 let start = 0;
-Display(TIMETOWORK);
+DisplayTimer(TIMETOWORK);
 
-function Start(){
+function StartTimer(){
   if(!start){
     timer = setInterval(NewTime, 1000);
     start = 1;
   }
 }
 
-function End(){
+function EndTimer(){
   clearInterval(timer);
   time = TIMETOWORK;
   start = 0;
-  Display(TIMETOWORK);
+  DisplayTimer(TIMETOWORK);
 }
 
-function Stop() {
+function StopTimer() {
   clearInterval(timer);
   start = 0;
 }
 
 function NewTime(){
   time -= ONESECOND;
-  Display(time);
+  DisplayTimer(time);
 }
 
-function Display(ActualTime){
+function DisplayTimer(ActualTime){
   let seconds = Math.floor(ActualTime % 60).toString();
   let minutes = Math.floor(ActualTime / 60).toString();
   if (seconds.length === 1 ) {
