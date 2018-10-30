@@ -15,12 +15,12 @@ require("PDO.php");
 foreach (getInfoGameInProgress() as $key => $donnees)
 {
   ?>
-  <h1><?php echo "Numéro de partie : ".$donnees['idGameInProgress']; ?></h1></br>
-  <b><?php echo "Début de la partie : ".$donnees['timeStart']; ?></b></br>
-  <b><?php echo "Validation de la première étape : ".$donnees['timeFirstStep']; ?></b></br>
-  <b><?php echo "Validation de la deuxième étape : ".$donnees['timeSecondeStep']; ?></b></br>
-	<b><?php echo "Validation de la dernière étape : ".$donnees['timeEnd']; ?></b></br>
-	<b><?php echo "Valeur de la partie : ".$donnees['idGame']; ?></b></br>
+  <h1><?php echo "Numéro de partie : ".$donnees['idgameinprogress']; ?></h1></br>
+  <b><?php echo "Début de la partie : ".$donnees['timestart']; ?></b></br>
+  <b><?php echo "Validation de la première étape : ".$donnees['timefirststep']; ?></b></br>
+  <b><?php echo "Validation de la deuxième étape : ".$donnees['timesecondestep']; ?></b></br>
+	<b><?php echo "Validation de la dernière étape : ".$donnees['timeend']; ?></b></br>
+	<b><?php echo "Valeur de la partie : ".$donnees['idgame']; ?></b></br>
 	<br/>
 <?php
 }
