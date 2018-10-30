@@ -64,8 +64,11 @@ function UpdateView(listBin)
 
 // Finis la partie
 function Win(){
+
   var Address = "http://" + ADDR + "/escapeGame/end.php";
   localStorage.clear();
   alert("Gagné");
+  document.getElementById("TableSol1").hidden = true;
+  document.getElementById("winimage").hidden = false;
   window.location.replace(Address);
 }
