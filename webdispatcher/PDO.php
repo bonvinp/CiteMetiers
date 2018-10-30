@@ -9,7 +9,7 @@
 DEFINE('DB_HOST', "127.0.0.1");
 DEFINE('DB_NAME', "ESCAPEGAME");
 DEFINE('DB_USER', "root");
-DEFINE('DB_PASS', "root");
+DEFINE('DB_PASS', "raspberry");
 
 // Méthode qui permet de créer une variable static pour la connexion à la base de données
 function getConnexion(){
@@ -32,10 +32,10 @@ function getConnexion(){
 // Méthode qui permet de savoir le nombre de partie différente
 function getNbGame(){
   $connexion = getConnexion();
-  $requete = $connexion->prepare("SELECT count(idGame) FROM gameset");
+  $requete = $connexion->prepare("SELECT count(idgame) FROM gameset");
   $requete->execute();
   $nbGame = $requete->fetch(PDO::FETCH_ASSOC);
-  return $nbGame['count(idGame)'];
+  return $nbGame['count(idgame)'];
 }
 
 // Méthode qui permet de démarrer une nouvelle partie
@@ -44,7 +44,7 @@ function startNewGame(){
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('INSERT INTO `gameInProgress` (`timeStart`, `timeFirstStep`, `timeSecondeStep`, `timeEnd`, `idGame`) VALUES (now(), NULL, NULL, NULL,  :id);');
+    $requete = $connexion->prepare('INSERT INTO `gameinprogress` (`timestart`, `timefirststep`, `timesecondestep`, `timeend`, `idgame`) VALUES (now(), NULL, NULL, NULL,  :id);');
     $requete->bindParam(':id', $rnd, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
@@ -58,22 +58,22 @@ function startNewGame(){
 
 // Méthode qui permet de trouver la partie qui est actuellement en cours
 // Pour cela on regarde la dernière partie commencé dans la base
-function findGameInProgress(){
+function findgameinprogress(){
   $connexion = getConnexion();
-  $requete = $connexion->prepare("SELECT idGameInProgress FROM gameInProgress ORDER BY idGameInProgress DESC LIMIT 1");
+  $requete = $connexion->prepare("SELECT idgameinprogress FROM gameinprogress ORDER BY idgameinprogress DESC LIMIT 1");
   $requete->execute();
-  $idGameInProgress = $requete->fetch(PDO::FETCH_ASSOC);
-  return $idGameInProgress['idGameInProgress'];
+  $idgameinprogress = $requete->fetch(PDO::FETCH_ASSOC);
+  return $idgameinprogress['idgameinprogress'];
 }
 
 // Méthode qui permet de valider la première étape
 function validFirstStep(){
-  $idGameInProgress = findGameInProgress();
+  $idgameinprogress = findgameinprogress();
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeFirstStep` = now() WHERE `idGameInProgress` = :id');
-    $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
+    $requete = $connexion->prepare('UPDATE `gameinprogress` SET `timefirststep` = now() WHERE `idgameinprogress` = :id');
+    $requete->bindParam(':id', $idgameinprogress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
   }
@@ -86,12 +86,12 @@ function validFirstStep(){
 
 // Méthode qui permet de valider la deuxième étape
 function validSecondeStep(){
-  $idGameInProgress = findGameInProgress();
+  $idgameinprogress = findgameinprogress();
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeSecondeStep` = now() WHERE `idGameInProgress` = :id');
-    $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
+    $requete = $connexion->prepare('UPDATE `gameinprogress` SET `timesecondestep` = now() WHERE `idgameinprogress` = :id');
+    $requete->bindParam(':id', $idgameinprogress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
   }
@@ -104,12 +104,12 @@ function validSecondeStep(){
 
 // Méthode qui permet de valider la dernière étape
 function validEndStep(){
-  $idGameInProgress = findGameInProgress();
+  $idgameinprogress = findgameinprogress();
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeEnd` = now() WHERE `idGameInProgress` = :id');
-    $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
+    $requete = $connexion->prepare('UPDATE `gameinprogress` SET `timeend` = now() WHERE `idgameinprogress` = :id');
+    $requete->bindParam(':id', $idgameinprogress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
   }
@@ -122,25 +122,25 @@ function validEndStep(){
 }
 
 // Méthode qui permet de récuperer les informations de la partie en cours
-function getInfoGameInProgress(){
+function getInfogameinprogress(){
   $connexion = getConnexion();
-  $idGameInProgress= findGameInProgress();
-    $requete = $connexion->prepare('SELECT * FROM gameInProgress WHERE idGameInProgress	 = :id');
-  $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
+  $idgameinprogress= findgameinprogress();
+    $requete = $connexion->prepare('SELECT * FROM gameinprogress WHERE idgameinprogress	 = :id');
+  $requete->bindParam(':id', $idgameinprogress, PDO::PARAM_INT);
   $requete->execute();
-  $infoGameInProgress = $requete->fetchAll(PDO::FETCH_ASSOC);
-  return $infoGameInProgress;
+  $infogameinprogress = $requete->fetchAll(PDO::FETCH_ASSOC);
+  return $infogameinprogress;
 }
 
 // Méthode qui permet de déclarer une défaite
 // Pour cela il y a dans la table gameinprogress la valeur de success à 0
 function giveUp(){
   $connexion = getConnexion();
-  $idGameInProgress= findGameInProgress();
+  $idgameinprogress= findgameinprogress();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `success` = 0 WHERE `idGameInProgress` = :id');
-    $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
+    $requete = $connexion->prepare('UPDATE `gameinprogress` SET `success` = 0 WHERE `idgameinprogress` = :id');
+    $requete->bindParam(':id', $idgameinprogress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
   }
@@ -153,32 +153,32 @@ function giveUp(){
 
 // Méthode qui permet de vérifier la différence de temps entre le début et la fin de l'escape game
 function checkTime(){
-  $infoGameInProgress = getInfoGameInProgress();
-  foreach (getInfoGameInProgress() as $key => $donnees)
+  $infogameinprogress = getInfogameinprogress();
+  foreach (getInfogameinprogress() as $key => $donnees)
   {
-      $timeStart = $donnees['timeStart'];
-      $timeEnd = $donnees['timeEnd'];
+      $timestart = $donnees['timestart'];
+      $timeend = $donnees['timeend'];
   }
-  $timeStart = new DateTime($timeStart);
-  $timeEnd = new DateTime($timeEnd);
+  $timestart = new DateTime($timestart);
+  $timeend = new DateTime($timeend);
   $diff = 15 * 60;
-  if($timeEnd->getTimeStamp() - $timeStart->getTimeStamp() > $diff)
+  if($timeend->getTimeStamp() - $timestart->getTimeStamp() > $diff)
     giveUp();
 }
 
 // Méthode qui permet de recuperer les informations du template de partie
 function getInfoGameSet(){
   $connexion = getConnexion();
-  $idGameInProgress = findGameInProgress();
-  foreach (getInfoGameInProgress() as $key => $donnees)
+  $idgameinprogress = findgameinprogress();
+  foreach (getInfogameinprogress() as $key => $donnees)
   {
-      $idGame = $donnees['idGame'];
+      $idgame = $donnees['idgame'];
   }
-  $requete = $connexion->prepare('SELECT * FROM gameset WHERE idGame = :id');
-  $requete->bindParam(':id', $idGame, PDO::PARAM_INT);
+  $requete = $connexion->prepare('SELECT * FROM gameset WHERE idgame = :id');
+  $requete->bindParam(':id', $idgame, PDO::PARAM_INT);
   $requete->execute();
-  $infoGameInProgress = $requete->fetchAll(PDO::FETCH_ASSOC);
-  return $infoGameInProgress;
+  $infogameinprogress = $requete->fetchAll(PDO::FETCH_ASSOC);
+  return $infogameinprogress;
 }
 
 // Méthode qui permet de récupérer les noms des câbles
@@ -187,12 +187,12 @@ function getNameCable(){
   $tableCable = array();
   $result = array();
   foreach (getInfoGameSet() as $key => $value) {
-    $tableCable[] = $value['cableSelect1'];
-    $tableCable[] = $value['cableSelect2'];
-    $tableCable[] = $value['cableSelect3'];
+    $tableCable[] = $value['cableselect1'];
+    $tableCable[] = $value['cableselect2'];
+    $tableCable[] = $value['cableselect3'];
   }
   foreach ($tableCable as $value) {
-    $requete = $connexion->prepare('SELECT nameCable FROM cables WHERE idCable = :idCable');
+    $requete = $connexion->prepare('SELECT namecable FROM cables WHERE idCable = :idCable');
     $requete->bindParam(':idCable', $value, PDO::PARAM_INT);
     $requete->execute();
     $result[]  = $requete->fetch(PDO::FETCH_ASSOC);
@@ -203,23 +203,23 @@ function getNameCable(){
 // Méthode qui retourne l'état de la vidéo
 function getInfoVideo(){
   $connexion = getConnexion();
-  $idGameInProgress = findGameInProgress();
-  $requete = $connexion->prepare("SELECT isVideoPlayed FROM gameinprogress WHERE idGameInProgress = :id");
-  $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
+  $idgameinprogress = findgameinprogress();
+  $requete = $connexion->prepare("SELECT isvideoplayed FROM gameinprogress WHERE idgameinprogress = :id");
+  $requete->bindParam(':id', $idgameinprogress, PDO::PARAM_INT);
   $requete->execute();
   $result = $requete->fetch(PDO::FETCH_ASSOC);
-  return $result['isVideoPlayed'];
+  return $result['isvideoplayed'];
 }
 
 // Méthode qui change l'état de la vidéo dans la base de données
 function switchVideo($isVideoPlayed){
-  $idGameInProgress = findGameInProgress();
+  $idgameinprogress = findgameinprogress();
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `isVideoPlayed` = :isVideoPlayed WHERE `idGameInProgress` = :id');
+    $requete = $connexion->prepare('UPDATE `gameinprogress` SET `isvideoplayed` = :isVideoPlayed WHERE `idgameinprogress` = :id');
     $requete->bindParam(':isVideoPlayed', $isVideoPlayed, PDO::PARAM_INT);
-    $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
+    $requete->bindParam(':id', $idgameinprogress, PDO::PARAM_INT);
     $error = $requete->execute();
     $connexion->commit();
   }
