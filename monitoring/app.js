@@ -1,12 +1,15 @@
 document.getElementById("playParty").addEventListener("click", function(e){
   StartTimer();
   StartVideo();
+  NewGame();
 });
 
 document.getElementById("resetParty").addEventListener("click", function(e){
   EndTimer();
   StartVideo(false);
 });
+
+const API_ENDPOINT = 'http://10.5.51.30/EscapeGame';
 
 const TIMETOWORK = 60*15;
 const ONESECOND = 1;
@@ -51,7 +54,7 @@ function DisplayTimer(ActualTime){
 
 function StartVideo(pause = true) {
   let isPaused = +pause;
-  fetch(`http://10.5.51.30/EscapeGame/video.php?play=${isPaused}`, {
+  fetch(`${API_ENDPOINT}/video.php?play=${isPaused}`, {
     method: 'GET'
   })
     .then(response => {
@@ -62,3 +65,38 @@ function StartVideo(pause = true) {
     })
     .catch(err => console.log(err));
 }
+
+function NewGame() {
+  fetch(`${API_ENDPOINT}/start.php`, {
+    method: 'GET'
+  })
+    .then(response => {
+      console.log(response)
+    })
+    .catch(err => console.log(err));
+}
+
+function GetGameInfo() {
+  fetch(`${API_ENDPOINT}/soluce.php`, {
+    method: 'GET'
+  })
+    .then(response => {
+      response.json()
+        .then(json => {
+          RefreshView(json);
+        });
+    })
+    .catch(err => console.log(err));
+}
+
+function RefreshView(json) {
+  console.log(json)
+
+  document.querySelector('#cables-tofind').innerHTML = `${json.nameCable1}-${json.nameCable2}-${json.nameCable3}`
+
+  document.querySelector('#first-hexacode-tofind').innerHTML = `"${json.soluce1}"`;
+  document.querySelector('#second-hexacode-tofind').innerHTML = `"${json.soluce2}"`;
+
+}
+
+setInterval(GetGameInfo, 1000);
