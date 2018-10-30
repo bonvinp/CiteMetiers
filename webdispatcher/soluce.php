@@ -4,6 +4,7 @@
   Date        : 25.09.2018
   Description : data management
 */
+
 require("PDO.php");
 include('result.php');
 $idGame = getInfoGameInProgress()[0]['idGameInProgress'];
@@ -21,6 +22,4 @@ $result = new result($idGame, $cableSelect[0], $nameCable[0], $cableSelect[1], $
 $resultJSON = json_encode($result);
 
 print_r($resultJSON);
-
-//echo "</br>".$idGame."-".$nameCable[0]."(".$cableSelect[0].")|".$nameCable[1]."(".$cableSelect[1].")|".$nameCable[2]."(".$cableSelect[2].")-".$indice[0]."|".$indice[1];
- ?>
+?>

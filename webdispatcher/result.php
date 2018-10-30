@@ -1,4 +1,5 @@
 <?php
+// Classe qui permet de créer des objets résultats
 class Result {
   public $idGame;
   public $idCable1;

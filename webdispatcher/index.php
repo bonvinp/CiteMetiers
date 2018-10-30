@@ -10,7 +10,7 @@ require("PDO.php");
 <head>
 </head>
 <body>
-
+<h1> Page de test </h1>
 <?php
 foreach (getInfoGameInProgress() as $key => $donnees)
 {
