@@ -4,6 +4,7 @@
   Date        : 25.09.2018
   Description : data management
 */
+
 DEFINE('DB_HOST', "127.0.0.1");
 DEFINE('DB_NAME', "ESCAPEGAME");
 DEFINE('DB_USER', "root");
@@ -43,7 +44,6 @@ function startNewGame(){
     $requete->bindParam(':id', rand(1, $nbGame), PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
-    header('Location: index.php');
   }
   catch (Exception $e)
   {
@@ -54,10 +54,10 @@ function startNewGame(){
 
 function findGameInProgress(){
   $connexion = getConnexion();
-  $requete = $connexion->prepare("SELECT idLog FROM gameInProgress ORDER BY idLog DESC LIMIT 1");
+  $requete = $connexion->prepare("SELECT idGameInProgress FROM gameInProgress ORDER BY idGameInProgress DESC LIMIT 1");
   $requete->execute();
   $idGameInProgress = $requete->fetch(PDO::FETCH_ASSOC);
-  return $idGameInProgress['idLog'];
+  return $idGameInProgress['idGameInProgress'];
 }
 
 function validFirstStep(){
@@ -65,11 +65,10 @@ function validFirstStep(){
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeFirstStep` = now() WHERE `idLog` = :id');
+    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeFirstStep` = now() WHERE `idGameInProgress` = :id');
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
-    header('Location: index.php');
   }
   catch (Exception $e)
   {
@@ -83,11 +82,10 @@ function validSecondeStep(){
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeSecondeStep` = now() WHERE `idLog` = :id');
+    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeSecondeStep` = now() WHERE `idGameInProgress` = :id');
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
-    header('Location: index.php');
   }
   catch (Exception $e)
   {
@@ -101,23 +99,23 @@ function validEndStep(){
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeEnd` = now() WHERE `idLog` = :id');
+    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `timeEnd` = now() WHERE `idGameInProgress` = :id');
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
-    header('Location: index.php');
   }
   catch (Exception $e)
   {
     $connexion->rollback();
     echo "Error -> ".$e;
   }
+  checkTime();
 }
 
 function getInfoGameInProgress(){
   $connexion = getConnexion();
   $idGameInProgress= findGameInProgress();
-  $requete = $connexion->prepare('SELECT * FROM gameInProgress WHERE idLog = :id');
+    $requete = $connexion->prepare('SELECT * FROM gameInProgress WHERE idGameInProgress	 = :id');
   $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
   $requete->execute();
   $infoGameInProgress = $requete->fetchAll(PDO::FETCH_ASSOC);
@@ -129,11 +127,10 @@ function giveUp(){
   $idGameInProgress= findGameInProgress();
   try{
     $connexion->beginTransaction();
-    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `success` = 0 WHERE `idLog` = :id');
+    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `success` = 0 WHERE `idGameInProgress` = :id');
     $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
-    header('Location: index.php');
   }
   catch (Exception $e)
   {
@@ -168,5 +165,23 @@ function getInfoGameSet(){
   $requete->execute();
   $infoGameInProgress = $requete->fetchAll(PDO::FETCH_ASSOC);
   return $infoGameInProgress;
+}
+
+function getNameCable(){
+  $connexion = getConnexion();
+  $tableCable = array();
+  $result = array();
+  foreach (getInfoGameSet() as $key => $value) {
+    $tableCable[] = $value['cableSelect1'];
+    $tableCable[] = $value['cableSelect2'];
+    $tableCable[] = $value['cableSelect3'];
+  }
+  foreach ($tableCable as $value) {
+    $requete = $connexion->prepare('SELECT nameCable FROM cables WHERE idCable = :idCable');
+    $requete->bindParam(':idCable', $value, PDO::PARAM_INT);
+    $requete->execute();
+    $result[]  = $requete->fetch(PDO::FETCH_ASSOC);
+  }
+  return $result;
 }
 ?>
