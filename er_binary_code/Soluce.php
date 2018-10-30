@@ -1,6 +1,6 @@
 <?php
 
-const ADDR = "10.5.51.30:8888";// ip du serveur
+const ADDR = "10.5.51.30";// ip du serveur
 const DEFAULT_VALUE = ["A","9"];// solutions par defaut
 
 // recupere les solutions du serveur sous forme de JSON
