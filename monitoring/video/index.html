@@ -34,14 +34,29 @@
 
     <script>
       let video = document.querySelector('video');
-      
-      video.addEventListener('click', function() {
-        video.play();
-        video.muted = false;
-      });
 
-      video.click();
-      
+      setInterval(() => {
+
+        fetch('http://10.5.51.30/EscapeGame/video.php', {
+          method: 'GET'
+        })
+          .then(response => {
+            response.json()
+              .then(json => {
+                if (json == 0) {
+                  video.pause();
+                } else {
+                  if(video.paused) {
+                    video.currentTime = 0;
+                  }
+                  
+                  video.play();
+                }
+              });
+          })
+          .catch(err => console.log(err));
+
+      }, 500);
     </script>
   </body>
 </html>

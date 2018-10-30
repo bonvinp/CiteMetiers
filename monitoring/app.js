@@ -1,5 +1,6 @@
 document.getElementById("playParty").addEventListener("click", function(e){
   Start();
+  StartVideo();
 });
 
 document.getElementById("stopParty").addEventListener("click", function(e){
@@ -8,6 +9,7 @@ document.getElementById("stopParty").addEventListener("click", function(e){
 
 document.getElementById("resetParty").addEventListener("click", function(e){
   End();
+  StartVideo(false);
 });
 
 const TIMETOWORK = 60*15;
@@ -49,4 +51,18 @@ function Display(ActualTime){
   }
                     
   document.getElementById("timer").innerHTML = minutes + ':' + seconds;
+}
+
+function StartVideo(pause = true) {
+  let isPaused = +pause;
+  fetch(`http://10.5.51.30/EscapeGame/video.php?play=${isPaused}`, {
+    method: 'GET'
+  })
+    .then(response => {
+      response.json()
+        .then(json => {
+          console.log(json);
+        });
+    })
+    .catch(err => console.log(err));
 }
