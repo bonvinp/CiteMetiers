@@ -1,7 +1,7 @@
 <?php
 /*
   Author      : Guillaume Pin
-  Date        : 25.09.2018
+  Date        : 30.10.2018
   Description : data management
 */
 
@@ -40,12 +40,12 @@ function getNbGame(){
 
 // Méthode qui permet de démarrer une nouvelle partie
 function startNewGame(){
-  $nbGame = getNbGame();
+  $rnd = rand(1, getNbGame());
   $connexion = getConnexion();
   try{
     $connexion->beginTransaction();
     $requete = $connexion->prepare('INSERT INTO `gameInProgress` (`timeStart`, `timeFirstStep`, `timeSecondeStep`, `timeEnd`, `idGame`) VALUES (now(), NULL, NULL, NULL,  :id);');
-    $requete->bindParam(':id', rand(1, $nbGame), PDO::PARAM_INT);
+    $requete->bindParam(':id', $rnd, PDO::PARAM_INT);
     $requete->execute();
     $connexion->commit();
   }
@@ -198,5 +198,39 @@ function getNameCable(){
     $result[]  = $requete->fetch(PDO::FETCH_ASSOC);
   }
   return $result;
+}
+
+// Méthode qui retourne l'état de la vidéo
+function getInfoVideo(){
+  $connexion = getConnexion();
+  $idGameInProgress = findGameInProgress();
+  $requete = $connexion->prepare("SELECT isVideoPlayed FROM gameinprogress WHERE idGameInProgress = :id");
+  $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
+  $requete->execute();
+  $result = $requete->fetch(PDO::FETCH_ASSOC);
+  return $result['isVideoPlayed'];
+}
+
+// Méthode qui change l'état de la vidéo dans la base de données
+function switchVideo($isVideoPlayed){
+  $idGameInProgress = findGameInProgress();
+  $connexion = getConnexion();
+  try{
+    $connexion->beginTransaction();
+    $requete = $connexion->prepare('UPDATE `gameInProgress` SET `isVideoPlayed` = :isVideoPlayed WHERE `idGameInProgress` = :id');
+    $requete->bindParam(':isVideoPlayed', $isVideoPlayed, PDO::PARAM_INT);
+    $requete->bindParam(':id', $idGameInProgress, PDO::PARAM_INT);
+    $error = $requete->execute();
+    $connexion->commit();
+  }
+  catch (Exception $e)
+  {
+    $connexion->rollback();
+    echo "Error -> ".$e;
+  }
+  return json_encode([
+    'status' => $error,
+    'isVideoPlayed' => $isVideoPlayed,
+  ]);
 }
 ?>
