@@ -1,0 +1,13 @@
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\bin\Debug\WFLostNFurious.exe.config
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\bin\Debug\WFLostNFurious.exe
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\bin\Debug\WFLostNFurious.pdb
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\obj\Debug\WFLostNFurious.csprojAssemblyReference.cache
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\obj\Debug\WFLostNFurious.frmMain.resources
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\obj\Debug\WFLostNFurious.Properties.Resources.resources
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\obj\Debug\WFLostNFurious.csproj.GenerateResource.cache
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\obj\Debug\WFLostNFurious.csproj.CoreCompileInputs.cache
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\obj\Debug\WFLostNFurious.exe
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\obj\Debug\WFLostNFurious.pdb
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\bin\Debug\Newtonsoft.Json.dll
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\bin\Debug\Newtonsoft.Json.xml
+C:\Users\leitej\Desktop\laby\Lost-n-Furious\WFLostNFurious\WFLostNFurious\obj\Debug\WFLostNFurious.csproj.CopyComplete
