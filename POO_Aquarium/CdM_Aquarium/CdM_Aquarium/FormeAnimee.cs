@@ -87,7 +87,8 @@ namespace CdM_Aquarium
         /// <param name="y0">Y Début </param>
         /// <param name="xE">X Fin </param>
         /// <param name="yE">Y Fin </param>
-        /// <param name="largeur">Taille de la forme </param>
+        /// <param name="largeur">Largeur de la forme </param>
+        /// <param name="hauteur">Hauteur de la forme </param>
         /// <param name="vitesse">Vitesse (représentée par une durée) </param>
         public FormeAnimee(double x0, double y0, double xE, double yE, double largeur, double hauteur, double vitesse)
         {

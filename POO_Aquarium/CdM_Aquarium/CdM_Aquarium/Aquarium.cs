@@ -2,9 +2,12 @@
  * Auteur : Dylan Schito, Kilian Perisset, Robin Brunazzi
  * Date : 02.10.2018
  * Projet : Cité des métiers
- * Description :
+ * Description : Classe définissant les propriétés et les méthodes de l'aquarium 
+                 > Génération des objets (bulles, poissons)
+                 > Gestion des collisions entre les objets
+                 > Définition d'un contexte physique (taille, vélocité, etc.)
  */
- 
+
 using CdM_Aquarium.Properties;
 using System;
 using System.Collections.Generic;
@@ -16,25 +19,36 @@ namespace CdM_Aquarium
     class Aquarium
     {
         #region Constantes
-        // Constante contenant la hauteur par défaut de l'Aquarium (limite verticale)
+        // Constante définissant la hauteur par défaut de l'Aquarium (limite verticale)
         const int HAUTEUR_AQUARIUM = 600;
-        // Constante contenant la largeur par défaut de l'Aquarium (limite horizontale)
+        // Constante définissant la largeur par défaut de l'Aquarium (limite horizontale)
         const int LARGEUR_AQUARIUM = 900;
+        // Constante définissant le nombre de bulles à faire apparaître par "tick" (rotation complète minuterie)
+        const int BULLES_PAR_TICK = 10;
         #endregion
 
         #region Champs
+        // Variable contenant un objet "Form", c'est-à-dire l'interface graphique
         private Form _vue;
+        // Variable contenant un objet "Minuterie" permettant la génération des bulles, la vérification des collisions, etc.
         private Timer _minuterie;
+        // Variable contenant un objet "Minuterie" pour le rafraîchissement de l'interface (tick rate)
         private Timer _rafraichir;
+        // Variable contenant un objet "Random" qui permet de générer des nombres aléatoires
         private Random _rnd;
+        // Variable contenant la hauteur de l'Aquarium
         private int _hauteurAquarium;
+        // Variable contenant la largeur de l'Aquarium
         private int _largeurAquarium;
 
+        // Variable contenant un objet "Liste de bulles" qui contient les bulles affichées à l'écran
         private List<Bulle> _bulles;
+        // Variable contenant un objet "Liste de bulles" qui contient les bulles à supprimer au prochain rafraîchissement
         private List<Bulle> _bullesASupprimer;
+        // Variable contenant un objet "Liste de bulles" qui contient les bulles à gonfler au prochain rafraîchissement
         private List<Bulle> _bullesAGonfler;
 
-
+        // Variable contenant un objet "Liste de poissons" qui contient les poissons affichés à l'écran
         private List<Poisson> _poissons;
         #endregion
 
@@ -116,11 +130,16 @@ namespace CdM_Aquarium
                     this.Vue.Paint -= p.DessinerPoissonDepuisFonction;
                 }
             });
-            poissonsASupprimer.ForEach(p=> this.Poissons.Remove(p));
+            poissonsASupprimer.ForEach(p => this.Poissons.Remove(p));
             poissonsASupprimer.Clear();
         }
         #endregion
 
+        /// <summary>
+        /// À chaque "tick" de la minuterie, effectuer une série d'actions (collisions, fusion, inversion du sens)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Minuterie_Tick(object sender, EventArgs e)
         {
             // Pour chaque bulle de la liste, "b" représentant une bulle
@@ -130,8 +149,10 @@ namespace CdM_Aquarium
             });
             FusionBulle();
 
-            for (int i = 0; i < 10; i++)
+            // Pour chaque bulle à créer à chaque tick
+            for (int i = 0; i < BULLES_PAR_TICK; i++)
             {
+                // Créer un nouvel objet "Bulle" avec des coordonnées de destination et d'origine aléatoires
                 Bulle maBulle = new Bulle(
               new PointF(this.Rnd.Next(0, this.LargeurAquarium), this.Rnd.Next(this.HauteurAquarium - 100, this.HauteurAquarium)),
               new PointF(this.Rnd.Next(0, this.LargeurAquarium), -10));
@@ -139,7 +160,9 @@ namespace CdM_Aquarium
                 this.Vue.Paint += maBulle.Paint;
             }
 
+            // Pour chaque bulle, si celle-ci est arrivée à destination, la faire disparaître de l'interface graphique
             Bulles.ForEach(b => { if (b.estArrive) { this.Vue.Paint -= b.Paint; } });
+            // Supprimer toutes les bulles qui sont arrivées de la liste des bulles
             Bulles.RemoveAll(b => b.estArrive);
 
             Poissons.ForEach(p =>
@@ -151,21 +174,34 @@ namespace CdM_Aquarium
                 }
             });
         }
-
+        /// <summary>
+        /// À chaque "tick" de la minuterie de rafraîchissement
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Refresh_Tick(object sender, EventArgs e)
         {
             // Vue..Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+            // Réinitialiser l'interface pour qu'elle réaffiche les objets selon leurs coordonnées actuelles
             this.Vue.Invalidate();
         }
 
+        /// <summary>
+        /// À chaque clic de la souris sur l'interface graphique (vue)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Vue_MouseClick(object sender, MouseEventArgs e)
         {
+            // Créer une nouvelle bulle avec des coordonnées aléatoires, puis l'ajoute à la liste des bulles à afficher
             Bulle maBulle = new Bulle(
                 new PointF(this.Rnd.Next(0, this.LargeurAquarium), this.Rnd.Next(this.HauteurAquarium - 100, this.HauteurAquarium)),
                 new PointF(this.Rnd.Next(0, this.LargeurAquarium), 0));
             this.Bulles.Add(maBulle);
             this.Vue.Paint += maBulle.Paint;
 
+            // Créer un nouveau poisson au niveau de la souris, puis l'ajouter à la la liste des poissons à afficher
             Poisson monPoisson = new Poisson(e.Location, new PointF(50, e.Location.Y), 50, 50, 2500);
             this.Poissons.Add(monPoisson);
             this.Vue.Paint += monPoisson.DessinerPoissonDepuisFonction;
@@ -179,13 +215,18 @@ namespace CdM_Aquarium
         /// <returns>Booléen représentant si une collision est détectée</returns>
         public bool DetecteCollision(Bulle bulle1)
         {
+            // Par défaut, on considère qu'il n'y a aucune collision
             bool collision = false;
 
+            // Pour chacune des bulles contenues dans l'aquarium
             this.Bulles.ForEach(bulle2 =>
             {
+                // Vérifications d'usage (si les deux bulles vérifiées ne sont pas les mêmes, si elles n'ont pas explosé)
                 if ((bulle1 != bulle2) && (!bulle1.Explose) && (!bulle2.Explose) &&
+                // Si la boîte de collision de la bulle 1 croise avec celle de la bulle 2, alors :
                 (bulle1.BoiteDeCollision.IntersectsWith(bulle2.BoiteDeCollision)))
                 {
+                    // Gonfler une nouvelle bulle conservant les propriétés de la bulle d'origine, et supprimer l'autre bulle
                     this.BullesAGonfler.Add(bulle1);
                     bulle2.Explose = true;
                     this.BullesASupprimer.Add(bulle2);
