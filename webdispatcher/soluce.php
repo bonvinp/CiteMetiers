@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
+header("Access-Control-Allow-Origin: *");
+header('Content-Type: application/json');
 /*
 Author      : Guillaume Pin
 Date        : 25.09.2018
@@ -23,6 +26,12 @@ $cableSelect[] = $getInfoGameSet['cableselect2'];
 $cableSelect[] = $getInfoGameSet['cableselect3'];
 $indice[] = $getInfoGameSet['indice1'];
 $indice[] = $getInfoGameSet['indice2'];
+$binary = $getInfoGameSet['binary'];
+
+$master = ping('127.0.0.1', 80, 1);
+$sensehat = ping('127.0.0.1', 80, 1);
+$piface = ping('127.0.0.1', 80, 1);
+$laby = ping('127.0.0.1', 80, 1);
 
 $result = new result($idGame,
 $cableSelect[0],
@@ -33,13 +42,27 @@ $cableSelect[2],
 $nameCable[2],
 $indice[0],
 $indice[1],
+$binary,
 $start,
 $step1,
 $step2,
 $end,
-$success);
+$success,
+$master,
+$sensehat,
+$piface,
+$laby);
 
 $resultJSON = json_encode($result);
 
 print_r($resultJSON);
+
+function ping($ip, $port, $timeout){
+  $fp = fsockopen($ip, $port, $errno, $errstr, $timeout);
+  if (!$fp) {
+    return 0;
+  } else {
+    return 1;
+  }
+}
 ?>
