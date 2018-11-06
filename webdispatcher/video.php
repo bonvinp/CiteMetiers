@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");  
 /*
 Author      : Guillaume Pin
 Date        : 30.10.2018

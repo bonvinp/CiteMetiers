@@ -1,4 +1,10 @@
 <?php
+/*
+Auteur  : Lopes Miguel, Troller Fabian, Juling Guntram
+Date    : 2018.11.06
+Description : Code javascript cité des metiers
+ */
+
 include("Soluce.php");
 $solution = getSolutionJSON();
 
@@ -10,115 +16,103 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date dans le passé
 <head>
 
     <title>Bouton</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
-    <script>var ADDR = JSON.parse('<?= json_encode(ADDR) ?>');</script>
-    <script src="./javascript.js"></script>
+    <script>var ADDR = JSON.parse('<?= json_encode(ADDR) ?>');
+        var solution = JSON.parse('<?= json_encode($solution) ?>');</script>
+    <script src="./javascript.js?d=<?php echo date('hms',time()); ?>"></script>
 </head>
 
-<body class="text-center">
-<div class="row">
-    <div class="col-sm-7">
-
-        <!-- start -->
-        <div class="row">
-            <div class="col">
-                <table border="solid" class="table" id="TablePow1">
-                    <tr>
-                        <?php
-                        for ($i = 3; $i >= 0; $i--) { ?>
-                            <td>2<sup><?php print($i); ?></sup></td>
-                            <?php
-                        }
-                        ?>
-                    </tr>
-                </table>
-            </div>
-            <div class="col">
-                <table border="solid" class="table" id="TablePow2">
-                    <tr>
-                        <?php
-                        for ($i = 3; $i >= 0; $i--) { ?>
-                            <td>2<sup><?php print($i); ?></sup></td>
-                            <?php
-                        }
-                        ?>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <!-- end -->
-        <!-- start -->
-        <div class="row">
-            <div class="col">
-                <table border="solid" id="Table1" class="table">
-                    <tr>
-
-                        <?php
-                        for ($i = 0; $i < 8; $i++) {
-                            if ($i == 4) {
-                                print('</tr></table></div><div class="col"><table border="solid" id="Table2" class="table"><tr>');
-                            } ?>
-                            <td>
-                                <?php print('<div id="value' . $i . '">_</div>'); ?>
-                            </td>
-                        <?php }
-
-                        ?>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <!-- end -->
-        <!-- start -->
-        <div class="row">
-            <div class="col">
-                <table border="solid" id="TableHex1" class="table">
-                    <tr>
-                        <?php
-                        for ($i = 0; $i < 2; $i++) {
-                            if ($i == 1) {
-                                print('</tr></table></div><div class="col"><table border="solid" id="TableHex2" class="table"><tr>');
-                            } ?>
-                            <td>
-                                <?php print('<div id="hex' . $i . '">0</div>'); ?>
-                            </td>
-                        <?php } ?>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <!-- end -->
-    </div>
-    <div class="col-sm-5 align-items-start flex-column">
-        <!-- start -->
-        <form method="post" action="serveur.php">
+<body class="text-center" style="font-size: 2.5em;">
+<main class="container-fluid">
+    <section class="col-md-6">
+        <div class="col-md-6">
             <div class="row">
-                <input type="Button" value="X" name="Delete" onclick="ResetArray()" id="X"
-                       class="btn btn-secondary w-100"/>
-                <div class="w-100 col">
-                    <!-- start -->
-                    <div>
-                        <div class="col">
-                            <table class="table mt-2" id="TableSol1">
-                                <th style="border:none;">Résultat :</th><th style="border:solid 1px;"><div id="sol0"><?php print($solution[0]);?></div> <div id="sol1"><?php print($solution[1]);?></div>
-                                </th>
-                            </table>
+                <span class="solutions" id="sol0">?</span>
+            </div>
+            <div class="row">
+                <p>
+                    &nbsp;2<sup>3</sup>&nbsp;
+                    &nbsp;2<sup>2</sup>&nbsp;
+                    &nbsp;2<sup>1</sup>&nbsp;
+                    &nbsp;2<sup>0</sup>&nbsp;
+                </p>
+            </div>
+            <div class="row binary">
+                <hr>
+                <?php
+                for ($i = 0; $i < 4; $i++)
+                    echo '&nbsp;<span id="value' . $i . '">_</span>&nbsp;';
+                ?>
+                <hr>
+            </div>
+            <div class="row hexadecimal">
+                <span id="hex0">0</span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <span class="solutions" id="sol1">?</span>
+            </div>
+            <div class="row">
+                <p>
+                    &nbsp;2<sup>3</sup>&nbsp;
+                    &nbsp;2<sup>2</sup>&nbsp;
+                    &nbsp;2<sup>1</sup>&nbsp;
+                    &nbsp;2<sup>0</sup>&nbsp;
+                </p>
+            </div>
+            <div class="row binary">
+                <hr>
+                <?php
+                for ($i = 4; $i < 8; $i++)
+                    echo '&nbsp;<span id="value' . $i . '">_</span>&nbsp;';
+                ?>
+                <hr>
+            </div>
+            <div class="row hexadecimal">
+                <span id="hex1">0</span>
+            </div>
+        </div>
+    </section>
+    <section class="col-md-6">
+        <div class="row">
+            <br>
+        </div>
+        <br>
+        <div class="row">
+            <span id="message">Veuillez entrer le code</span>
+        </div>
+        <br>
+        <div class="row">
+            <form method="post" action="serveur.php">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input disabled value="0" type="Button" style="height: 100px" onclick="ListSetter(0)"
+                                   id="B0"
+                                   class="btn btn-lg btn-block btn-primary"/>
+                        </div>
+                        <div class="col-md-6">
+                            <input disabled value="1" type="Button" style="height: 100px" onclick="ListSetter(1)"
+                                   id="B1"
+                                   class="btn btn-lg btn-block btn-primary"/>
                         </div>
                     </div>
-                    <!-- end -->
-                    <img src="img/cadena_ouvert.png" class="w-50 h-60" id="winimage" hidden/></div>
-                <input type="Button" value="0" name="Button" onclick="ListSetter(0)" id="B0"
-                       class="btn btn-secondary w-100 mb-1"/>
-                <input type="Button" value="1" name="Button" onclick="ListSetter(1)" id="B1"
-                       class="btn btn-secondary w-100"/>
-            </div>
-
-        </form>
-        <!-- end -->
-    </div>
-</div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input disabled value="Effacer" type="Button" style="height: 50px" onclick="ResetArray()"
+                                   id="B2"
+                                   class="btn btn-lg btn-block btn-danger"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
 </body>
 
 </html>
