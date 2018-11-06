@@ -16,7 +16,9 @@ namespace CdM_Aquarium
     class Aquarium
     {
         #region Constantes
+        // Constante contenant la hauteur par défaut de l'Aquarium (limite verticale)
         const int HAUTEUR_AQUARIUM = 600;
+        // Constante contenant la largeur par défaut de l'Aquarium (limite horizontale)
         const int LARGEUR_AQUARIUM = 900;
         #endregion
 
