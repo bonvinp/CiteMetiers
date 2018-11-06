@@ -89,13 +89,46 @@ function GetGameInfo() {
     .catch(err => console.log(err));
 }
 
+function displayStatus(selector, prefix = '', status) {
+  if (status) {
+    document.querySelector(selector).innerHTML = `${prefix} <i class="fas fa-check-circle done"></i>`
+  } else {
+    document.querySelector(selector).innerHTML = `${prefix} <i class="fas fa-times-circle error"></i>`
+  }
+}
+
 function RefreshView(json) {
   console.log(json)
-
+  //piface
   document.querySelector('#cables-tofind').innerHTML = `${json.nameCable1}-${json.nameCable2}-${json.nameCable3}`
 
-  document.querySelector('#first-hexacode-tofind').innerHTML = `"${json.soluce1}"`;
-  document.querySelector('#second-hexacode-tofind').innerHTML = `"${json.soluce2}"`;
+  //hexacodes
+  document.querySelector('#first-hexacode-tofind').innerHTML = `"${json.soluce1}"`
+  document.querySelector('#second-hexacode-tofind').innerHTML = `"${json.soluce2}"`
+
+  //game identifier
+  document.querySelector('#game-number').innerHTML = `Partie n°${json.idGame}`
+
+  //Date of the game
+  let date = new Date(json.start)
+  if (date) {
+    document.querySelector('#game-date > b').innerHTML = `${date.getUTCDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
+  }
+
+  let riddle1Date = new Date(json.start)
+  document.querySelector('#riddle1-beginning > b').innerHTML = `${riddle1Date.getHours()}h${riddle1Date.getMinutes()}`
+
+  //document.querySelector('#riddle2-beginning > b').innerHTML = ``
+  //document.querySelector('#riddle3-beginning > b').innerHTML = ``
+
+  //hex to binary
+  document.querySelector('#masterBerry').innerHTML = `0x${json.soluce1}${json.soluce2} > ${json.binary}`
+
+  //ping
+  displayStatus('.piface-riddle1', 'Piface', json.piface_up)
+  displayStatus('.piface-riddle2', 'Piface', json.piface_up)
+  displayStatus('.sensehat', 'Sensehat', json.sensehat_up)
+  displayStatus('.laby', 'Labyrinthe', json.laby_up)
 
 }
 
