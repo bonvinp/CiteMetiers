@@ -18,7 +18,7 @@ CREATE TABLE `cables` (
 
 INSERT INTO `cables` (`idcable`, `namecable`, `description`) VALUES
 (1,	'VGA',	NULL),
-(2,	'DVI',	NULL),
+(2,	'jack',	NULL),
 (3,	'HDMI',	NULL),
 (4,	'RJ45',	NULL),
 (5,	'USB',	NULL);
