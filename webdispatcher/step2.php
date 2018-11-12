@@ -6,7 +6,7 @@ header('Content-Type: application/json');
   Date        : 25.09.2018
   Description : data management
 */
-require("PDO.php");
+require("pdo.php");
 validSecondeStep();
 $result = "step2 validated";
 $resultJSON = json_encode($result);
