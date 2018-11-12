@@ -52,6 +52,10 @@ function DisplayTimer(ActualTime){
   document.getElementById("timer").innerHTML = minutes + ':' + seconds;
 }
 
+/**
+ * Requête HTTP asynchrone pour démarrer la vidéo de présentation de l'escaperoom
+ * @param {boolean} pause 
+ */
 function StartVideo(pause = true) {
   let isPaused = +pause;
   fetch(`${API_ENDPOINT}/video.php?play=${isPaused}`, {
@@ -66,6 +70,9 @@ function StartVideo(pause = true) {
     .catch(err => console.log(err));
 }
 
+/**
+ * Requête asynchrone pour créer une nouvelle partie
+ */
 function NewGame() {
   fetch(`${API_ENDPOINT}/start.php`, {
     method: 'GET'
@@ -76,6 +83,9 @@ function NewGame() {
     .catch(err => console.log(err));
 }
 
+/**
+ * Requête HTTP asynchrone pour récupérer les informations de la partie en cours
+ */
 function GetGameInfo() {
   fetch(`${API_ENDPOINT}/soluce.php`, {
     method: 'GET'
@@ -89,6 +99,12 @@ function GetGameInfo() {
     .catch(err => console.log(err));
 }
 
+/**
+ * Affiche le statut d'un raspberry
+ * @param {string} selector 
+ * @param {string} prefix
+ * @param {boolean} status 
+ */
 function displayStatus(selector, prefix = '', status) {
   if (status) {
     document.querySelector(selector).innerHTML = `${prefix} <i class="fas fa-check-circle done"></i>`
@@ -97,6 +113,25 @@ function displayStatus(selector, prefix = '', status) {
   }
 }
 
+/**
+ * Affiche si l'énigme a commencée ou non (si oui, heure affichée)
+ * @param {string} selector 
+ * @param {string} date 
+ */
+function displayStepDate(selector, date) {
+  if (date) {
+    let riddle = new Date(date)
+    document.querySelector(selector).innerHTML = `commencée à <b>${riddle.getHours()}h${riddle.getMinutes()}</b>`
+  } else {
+    document.querySelector(selector).innerHTML = `énigme pas commencée`
+  }
+}
+
+/**
+ * Cette fonction s'occupe de mettre à jour toute la vue 
+ * du dashboard en récupérant les données du serveur
+ * @param {*} json 
+ */
 function RefreshView(json) {
   console.log(json)
   //piface
@@ -115,11 +150,9 @@ function RefreshView(json) {
     document.querySelector('#game-date > b').innerHTML = `${date.getUTCDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
   }
 
-  let riddle1Date = new Date(json.start)
-  document.querySelector('#riddle1-beginning > b').innerHTML = `${riddle1Date.getHours()}h${riddle1Date.getMinutes()}`
-
-  //document.querySelector('#riddle2-beginning > b').innerHTML = ``
-  //document.querySelector('#riddle3-beginning > b').innerHTML = ``
+  displayStepDate('#riddle1-beginning', json.start)
+  displayStepDate('#riddle2-beginning', json.step1)
+  displayStepDate('#riddle3-beginning', json.step2)
 
   //hex to binary
   document.querySelector('#masterBerry').innerHTML = `0x${json.soluce1}${json.soluce2} > ${json.binary}`

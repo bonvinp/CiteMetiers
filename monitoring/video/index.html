@@ -34,10 +34,11 @@
 
     <script>
       let video = document.querySelector('video');
+      const SERVER_ENDPOINT = 'http://10.5.51.30/EscapeGame';
 
       setInterval(() => {
 
-        fetch('http://10.5.51.30/EscapeGame/video.php', {
+        fetch(`${SERVER_ENDPOINT}/video.php`, {
           method: 'GET'
         })
           .then(response => {
