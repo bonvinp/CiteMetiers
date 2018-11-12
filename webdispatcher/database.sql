@@ -5,8 +5,8 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-CREATE DATABASE `escapegame` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `escapegame`;
+-- CREATE DATABASE `escapegame` /*!40100 DEFAULT CHARACTER SET utf8 */;
+-- USE `escapegame`;
 
 DROP TABLE IF EXISTS `cables`;
 CREATE TABLE `cables` (
@@ -18,10 +18,23 @@ CREATE TABLE `cables` (
 
 INSERT INTO `cables` (`idcable`, `namecable`, `description`) VALUES
 (1,	'VGA',	NULL),
-(2,	'jack',	NULL),
+(2,	'JACK',	NULL),
 (3,	'HDMI',	NULL),
 (4,	'RJ45',	NULL),
 (5,	'USB',	NULL);
+
+
+DROP TABLE IF EXISTS `gameset`;
+CREATE TABLE `gameset` (
+  `idgame` int(11) NOT NULL AUTO_INCREMENT,
+  `cableselect1` int(11) NOT NULL,
+  `cableselect2` int(11) NOT NULL,
+  `cableselect3` int(11) NOT NULL,
+  `indice1` char(1) NOT NULL,
+  `indice2` char(1) NOT NULL,
+  `binary` char(8) NOT NULL,
+  PRIMARY KEY (`idgame`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `gameinprogress`;
 CREATE TABLE `gameinprogress` (
@@ -39,17 +52,6 @@ CREATE TABLE `gameinprogress` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `gameset`;
-CREATE TABLE `gameset` (
-  `idgame` int(11) NOT NULL AUTO_INCREMENT,
-  `cableselect1` int(11) NOT NULL,
-  `cableselect2` int(11) NOT NULL,
-  `cableselect3` int(11) NOT NULL,
-  `indice1` char(1) NOT NULL,
-  `indice2` char(1) NOT NULL,
-  `binary` char(8) NOT NULL,
-  PRIMARY KEY (`idgame`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `gameset` (`idgame`, `cableselect1`, `cableselect2`, `cableselect3`, `indice1`, `indice2`, `binary`) VALUES
 (1,	1,	2,	3,	'9',	'9',	'10011001'),
