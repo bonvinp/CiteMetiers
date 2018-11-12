@@ -121,7 +121,13 @@ function displayStatus(selector, prefix = '', status) {
 function displayStepDate(selector, date) {
   if (date) {
     let riddle = new Date(date)
-    document.querySelector(selector).innerHTML = `commencée à <b>${riddle.getHours()}h${riddle.getMinutes()}</b>`
+    let minutes = riddle.getMinutes();
+
+    if (minutes < 10) {
+      minutes = `0${minutes}`
+    }
+
+    document.querySelector(selector).innerHTML = `commencée à <b>${riddle.getHours()}h${minutes}</b>`
   } else {
     document.querySelector(selector).innerHTML = `énigme pas commencée`
   }
@@ -163,6 +169,10 @@ function RefreshView(json) {
   displayStatus('.sensehat', 'Sensehat', json.sensehat_up)
   displayStatus('.laby', 'Labyrinthe', json.laby_up)
 
+  //laby status
+  if (json.step2) {
+    document.querySelector('#laby-status').innerHTML = `Labyrinthe réussi !`
+  }
 }
 
 setInterval(GetGameInfo, 1000);
