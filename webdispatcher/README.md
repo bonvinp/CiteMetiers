@@ -7,8 +7,10 @@
 
 # Installation
 
-* Créer la base de donnée avec l'aide du script database.sql
+* Créer la base de donnée avec l'aide du script database.sql 
+* Modifier les informations concerant la connexion à la base de données dans le fichier pdo.php
 * Ajouter les fichiers PHP sur le serveur WEB
+* Se rendre sur la page soluce qui doit retourner un JSON
 
 # Utilisation
 
