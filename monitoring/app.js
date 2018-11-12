@@ -1,7 +1,11 @@
 document.getElementById("playParty").addEventListener("click", function(e){
   StartTimer();
-  StartVideo();
-  NewGame();
+  NewGame()
+    .then(response => {
+      console.log(response)
+      StartVideo();
+    })
+    .catch(err => console.log(err));
 });
 
 document.getElementById("resetParty").addEventListener("click", function(e){
@@ -74,13 +78,9 @@ function StartVideo(pause = true) {
  * Requête asynchrone pour créer une nouvelle partie
  */
 function NewGame() {
-  fetch(`${API_ENDPOINT}/start.php`, {
+   return fetch(`${API_ENDPOINT}/start.php`, {
     method: 'GET'
   })
-    .then(response => {
-      console.log(response)
-    })
-    .catch(err => console.log(err));
 }
 
 /**
@@ -120,7 +120,7 @@ function displayStatus(selector, prefix = '', status) {
  */
 function displayStepDate(selector, date) {
   if (date) {
-    let riddle = new Date(date)
+    let riddle = new Date(date.replace(/\s/, 'T')+'Z')
     let minutes = riddle.getMinutes();
 
     if (minutes < 10) {
@@ -151,7 +151,7 @@ function RefreshView(json) {
   document.querySelector('#game-number').innerHTML = `Partie n°${json.idGame}`
 
   //Date of the game
-  let date = new Date(json.start)
+  let date = new Date(json.start.replace(/\s/, 'T')+'Z')
   if (date) {
     document.querySelector('#game-date > b').innerHTML = `${date.getUTCDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
   }
