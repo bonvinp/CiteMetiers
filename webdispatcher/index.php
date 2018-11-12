@@ -4,7 +4,7 @@
   Date        : 25.09.2018
   Description : data management
 */
-require("PDO.php");
+require("pdo.php");
 ?>
 <html>
 <head>
@@ -45,7 +45,7 @@ foreach (getInfoGameInProgress() as $key => $donnees)
     <input type="submit" value="Fin" />
 </p>
 </form>
-<form action="giveUp.php" methodFR="post">
+<form action="giveup.php" methodFR="post">
 <p>
     <input type="submit" value="Give Up" />
 </p>
