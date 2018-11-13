@@ -173,6 +173,13 @@ function RefreshView(json) {
   if (json.step2) {
     document.querySelector('#laby-status').innerHTML = `Labyrinthe réussi !`
   }
+
+  //is party finish
+  if (json.end) {
+    document.querySelector('#party-finish').innerHTML = `La partie est terminée !`
+    EndTimer();
+    StartVideo(false);
+  }
 }
 
 setInterval(GetGameInfo, 1000);
