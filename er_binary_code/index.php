@@ -18,6 +18,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date dans le passé
     <title>Cité des métiers | Binary</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script>var ADDR = JSON.parse('<?= json_encode(ADDR) ?>');
         var solution = JSON.parse('<?= json_encode($solution) ?>');</script>
@@ -25,9 +26,10 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date dans le passé
 </head>
 
 <body class="text-center" style="font-size: 2.5em;">
-<main class="container-fluid">
-    <section class="col-md-6">
-        <div class="col-md-6">
+<main id="endgame" hidden><div class="winImage"></div></main>
+<main id="game" class="container-fluid">
+    <section class="col-xs-6">
+        <div class="col-xs-6">
             <div class="row">
                 <span class="solutions" id="sol0">?</span>
             </div>
@@ -51,7 +53,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date dans le passé
                 <span id="hex0">0</span>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-xs-6">
             <div class="row">
                 <span class="solutions" id="sol1">?</span>
             </div>
@@ -76,7 +78,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date dans le passé
             </div>
         </div>
     </section>
-    <section class="col-md-6">
+    <section class="col-xs-6">
         <div class="row">
             <br>
         </div>
@@ -87,18 +89,18 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date dans le passé
         <br>
         <div class="row">
             <form method="post" action="">
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-xs-6 col-xs-offset-3">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-xs-6">
                             <input disabled value="0" type="Button" style="height: 100px" onclick="ListSetter(0)" id="B0" class="btn btn-lg btn-block btn-primary"/>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-xs-6">
                             <input disabled value="1" type="Button" style="height: 100px" onclick="ListSetter(1)" id="B1" class="btn btn-lg btn-block btn-primary"/>
                         </div>
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-xs-12">
                             <input disabled value="Effacer" type="Button" style="height: 50px" onclick="ResetArray()" id="B2" class="btn btn-lg btn-block btn-danger"/>
                         </div>
                     </div>

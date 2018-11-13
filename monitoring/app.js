@@ -120,14 +120,14 @@ function displayStatus(selector, prefix = '', status) {
  */
 function displayStepDate(selector, date) {
   if (date) {
-    let riddle = new Date(date)
+    let riddle = new Date(date.replace(/\s/, 'T')+'Z')
     let minutes = riddle.getMinutes();
 
     if (minutes < 10) {
       minutes = `0${minutes}`
     }
 
-    document.querySelector(selector).innerHTML = `commencée à <b>${riddle.getHours()}h${minutes}</b>`
+    document.querySelector(selector).innerHTML = `commencée à <b>${riddle.getHours()-1}h${minutes}</b>`
   } else {
     document.querySelector(selector).innerHTML = `énigme pas commencée`
   }
@@ -151,7 +151,7 @@ function RefreshView(json) {
   document.querySelector('#game-number').innerHTML = `Partie n°${json.idGame}`
 
   //Date of the game
-  let date = new Date(json.start)
+  let date = new Date(json.start.replace(/\s/, 'T')+'Z')
   if (date) {
     document.querySelector('#game-date > b').innerHTML = `${date.getUTCDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
   }
