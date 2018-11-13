@@ -120,7 +120,7 @@ function displayStatus(selector, prefix = '', status) {
  */
 function displayStepDate(selector, date) {
   if (date) {
-    let riddle = new Date(date.replace(/\s/, 'T')+'Z')
+    let riddle = new Date(date)
     let minutes = riddle.getMinutes();
 
     if (minutes < 10) {
@@ -151,7 +151,7 @@ function RefreshView(json) {
   document.querySelector('#game-number').innerHTML = `Partie n°${json.idGame}`
 
   //Date of the game
-  let date = new Date(json.start.replace(/\s/, 'T')+'Z')
+  let date = new Date(json.start)
   if (date) {
     document.querySelector('#game-date > b').innerHTML = `${date.getUTCDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
   }
