@@ -6,6 +6,7 @@ document.getElementById("playParty").addEventListener("click", function(e){
       StartVideo();
       GetGameInfo();
       cablesProcessing();
+      detectCables(server_data.idCable1, server_data.idCable2, server_data.idCable3);
     })
     .catch(err => console.log(err));
 });
@@ -17,6 +18,7 @@ document.getElementById("resetParty").addEventListener("click", function(e){
 
 const API_ENDPOINT = 'http://192.168.123.242/webdispatcher';
 const SENSEHAT_ENDPOINT = 'http://192.168.123.241';
+const PIFACE2_ENDPOINT = 'http://192.168.123.242';
 
 let cablesProcessingInterval = null;
 let server_data = null;
@@ -148,6 +150,27 @@ function displaySensehatSolution(solution) {
 }
 
 /**
+ * Requête HTTP pour lancer la détection des câbles
+ * @param {int} firstId 
+ * @param {int} secondId 
+ * @param {int} thirdId 
+ */
+function detectCables(firstId, secondId, thirdId) {
+  if (firstId && secondId && thirdId) {
+    fetch(`${PIFACE2_ENDPOINT}/python/piface2.py?first=${firstId}&second=${secondId}&third=${thirdId}`, {
+      method: 'GET'
+    })
+      .then(response => {
+        response.json()
+          .then(json => {
+            //
+          });
+      })
+      .catch(err => console.log(err));
+  }
+}
+
+/**
  * Affiche les câbles sur le sensehat (refresh toutes les 20 secondes par défaut)
  * lorsque les câbles sont correctement branchés, affiche la première solution
  */
@@ -158,7 +181,7 @@ function cablesProcessing() {
 
   } else {
     //display cables on sensehat
-    displaySensehatMessage(server_data.nameCable1, server_data.nameCable2, server_data.nameCable3)
+    //displaySensehatMessage(server_data.nameCable1, server_data.nameCable2, server_data.nameCable3)
 
     cablesProcessingInterval = setInterval(function() {
       displaySensehatMessage(server_data.nameCable1, server_data.nameCable2, server_data.nameCable3)
