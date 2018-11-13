@@ -4,6 +4,8 @@ document.getElementById("playParty").addEventListener("click", function(e){
     .then(response => {
       console.log(response)
       StartVideo();
+      GetGameInfo();
+      cablesProcessing();
     })
     .catch(err => console.log(err));
 });
@@ -13,8 +15,13 @@ document.getElementById("resetParty").addEventListener("click", function(e){
   StartVideo(false);
 });
 
-const API_ENDPOINT = 'http://10.5.51.30/EscapeGame';
+const API_ENDPOINT = 'http://192.168.123.242/webdispatcher';
+const SENSEHAT_ENDPOINT = 'http://192.168.123.241';
 
+let cablesProcessingInterval = null;
+let server_data = null;
+
+//timer
 const TIMETOWORK = 60*15;
 const ONESECOND = 1;
 let time = TIMETOWORK;
@@ -93,10 +100,70 @@ function GetGameInfo() {
     .then(response => {
       response.json()
         .then(json => {
-          RefreshView(json);
+          server_data = json
+          RefreshView(server_data);
+
+          return server_data;
         });
     })
     .catch(err => console.log(err));
+}
+
+/**
+ * Requête HTTP pour afficher les câbles sur le sensehat du raspberry
+ */
+function displaySensehatMessage(cable1, cable2, cable3) {
+  if (cable1, cable2, cable3) {
+    fetch(`${SENSEHAT_ENDPOINT}/python/sensehat_message.py?text=${cable1} ${cable2} ${cable3}`, {
+      method: 'GET'
+    })
+      .then(response => {
+        response.json()
+          .then(json => {
+            //
+          });
+      })
+      .catch(err => console.log(err));
+  }
+}
+
+/**
+ * Requête HTTP pour afficher la solution sur le sensehat lorsque les câbles sont correctement branchées
+ * @param {string} solution 
+ */
+function displaySensehatSolution(solution) {
+
+  if (solution) {
+    fetch(`${SENSEHAT_ENDPOINT}/python/sensehat_letter.py?text=${solution}`, {
+      method: 'GET'
+    })
+      .then(response => {
+        response.json()
+          .then(json => {
+            //
+          });
+      })
+      .catch(err => console.log(err));
+  }
+}
+
+/**
+ * Affiche les câbles sur le sensehat (refresh toutes les 20 secondes par défaut)
+ * lorsque les câbles sont correctement branchés, affiche la première solution
+ */
+function cablesProcessing() {
+  if (server_data.step1) {
+    clearInterval(cablesProcessingInterval)
+    displaySensehatSolution(server_data.soluce1)
+
+  } else {
+    //display cables on sensehat
+    displaySensehatMessage(server_data.nameCable1, server_data.nameCable2, server_data.nameCable3)
+
+    cablesProcessingInterval = setInterval(function() {
+      displaySensehatMessage(server_data.nameCable1, server_data.nameCable2, server_data.nameCable3)
+    }, 20000) //every 20 seconds
+  }
 }
 
 /**
@@ -182,4 +249,5 @@ function RefreshView(json) {
   }
 }
 
+//interval(s)
 setInterval(GetGameInfo, 1000);
