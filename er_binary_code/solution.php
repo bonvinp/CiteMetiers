@@ -1,6 +1,6 @@
 <?php
 /*
-Auteur  : Troller Fabian, Juling Guntram
+Auteur  : Troller Fabian, Juling Guntram, Lopes Miguel
 Date    : 2018.11.06
 Description : Code PHP cité des metiers
  */

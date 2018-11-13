@@ -23,7 +23,7 @@ namespace Snake
         private void btnRestart_Click(object sender, System.EventArgs e)
         {
             // Instancie le jeu
-            snake = new Jeu(this, lblScore, 20, 20);
+            snake = new Jeu(this, lblScore,25, 25);
         }
     }
 }
