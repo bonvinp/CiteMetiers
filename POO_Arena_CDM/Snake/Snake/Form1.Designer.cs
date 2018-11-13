@@ -37,7 +37,7 @@
             // 
             // btnRestart
             // 
-            this.btnRestart.Location = new System.Drawing.Point(344, 418);
+            this.btnRestart.Location = new System.Drawing.Point(552, 648);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Size = new System.Drawing.Size(75, 23);
             this.btnRestart.TabIndex = 0;
@@ -48,7 +48,7 @@
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.Location = new System.Drawing.Point(12, 428);
+            this.lblScore.Location = new System.Drawing.Point(12, 653);
             this.lblScore.Name = "lblScore";
             this.lblScore.Size = new System.Drawing.Size(44, 13);
             this.lblScore.TabIndex = 1;
@@ -58,7 +58,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 447);
+            this.ClientSize = new System.Drawing.Size(644, 678);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnRestart);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

@@ -20,7 +20,7 @@ INSERT INTO `cables` (`idcable`, `namecable`, `description`) VALUES
 (1,	'VGA',	NULL),
 (2,	'JACK',	NULL),
 (3,	'HDMI',	NULL),
-(4,	'RJ45',	NULL),
+(4,	'DVI',	NULL),
 (5,	'USB',	NULL);
 
 

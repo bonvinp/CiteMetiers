@@ -17,3 +17,13 @@ C:\Users\Administrateur\Desktop\Snake_Pin\Snake\obj\Debug\Snake.csproj.GenerateR
 C:\Users\Administrateur\Desktop\Snake_Pin\Snake\obj\Debug\Snake.csproj.CoreCompileInputs.cache
 C:\Users\Administrateur\Desktop\Snake_Pin\Snake\obj\Debug\Snake.exe
 C:\Users\Administrateur\Desktop\Snake_Pin\Snake\obj\Debug\Snake.pdb
+C:\CiteMetiers\POO_Arena_CDM\Snake\Snake\bin\Debug\Snake.exe.config
+C:\CiteMetiers\POO_Arena_CDM\Snake\Snake\bin\Debug\Snake.exe
+C:\CiteMetiers\POO_Arena_CDM\Snake\Snake\bin\Debug\Snake.pdb
+C:\CiteMetiers\POO_Arena_CDM\Snake\Snake\obj\Debug\Snake.csprojAssemblyReference.cache
+C:\CiteMetiers\POO_Arena_CDM\Snake\Snake\obj\Debug\Snake.Form1.resources
+C:\CiteMetiers\POO_Arena_CDM\Snake\Snake\obj\Debug\Snake.Properties.Resources.resources
+C:\CiteMetiers\POO_Arena_CDM\Snake\Snake\obj\Debug\Snake.csproj.GenerateResource.cache
+C:\CiteMetiers\POO_Arena_CDM\Snake\Snake\obj\Debug\Snake.csproj.CoreCompileInputs.cache
+C:\CiteMetiers\POO_Arena_CDM\Snake\Snake\obj\Debug\Snake.exe
+C:\CiteMetiers\POO_Arena_CDM\Snake\Snake\obj\Debug\Snake.pdb
