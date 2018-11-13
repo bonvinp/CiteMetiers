@@ -22,5 +22,5 @@ hr {
   background-image: url('../img/cadena_ouvert.png');
   height: 100vh;
   background-repeat:no-repeat;
-  background-size:contain;
+  background-size:100% 100%;
 }

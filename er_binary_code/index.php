@@ -26,7 +26,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date dans le passé
 </head>
 
 <body class="text-center" style="font-size: 2.5em;">
-<main id="endgame" class="container-fluid" hidden><div class="winImage"></div></main>
+<main id="endgame" hidden><div class="winImage"></div></main>
 <main id="game" class="container-fluid">
     <section class="col-xs-6">
         <div class="col-xs-6">
