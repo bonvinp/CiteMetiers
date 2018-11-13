@@ -109,7 +109,7 @@ namespace CdM_Aquarium
                 // "Précision" à 100 lignes 0->99 (le poisson sera composé de 100 traits)
                 for (int i = 0; i < 99; i++)
                 {
-                    // Utilisation de la méthode de courbure
+                    // Utilisation de la méthode de courbure déclarée en amont
                     e.Graphics.DrawLine(MyPen, CourbePoisson(t), CourbePoisson(t + deltat));
                     t = t + deltat;
                 }
