@@ -25,7 +25,6 @@ namespace CdM_Aquarium
 
         #region Champs
         private bool changer = true;
-
         private Form _vue;
         private Timer _minuterie;
         private Timer _rafraichir;

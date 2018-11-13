@@ -14,7 +14,6 @@ using System.Windows.Forms;
 
 namespace CdM_Aquarium
 {
-
     class Poisson : FormeAnimee
     {
         int _sensPoisson;
