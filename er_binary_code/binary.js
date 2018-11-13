@@ -62,7 +62,10 @@ function UpdateView(listBin) {
 // Finis la partie
 function Win() {
 
-    var Address = "http://" + ADDR + "/end.php";
+    var Address = ADDR + "/end.php";
+	req.open('GET', Address, false);
+    req.send(null);
+	
     localStorage.clear();
     console.log("GAGNER");
 }
@@ -71,9 +74,7 @@ const req = new XMLHttpRequest();
 
 function checkServer() {
 
-    var  Address = "http://" + ADDR + "/soluce.php";
-    req.open('GET', Address, false);
-    req.send(null);
+    var  Address = ADDR + "/soluce.php";
 
     if (req.status === 200) {
         var jsonData = JSON.parse(req.responseText);

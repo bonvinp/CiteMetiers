@@ -1,21 +1,21 @@
 <?php
 /*
-Auteur  : Lopes Miguel, Troller Fabian, Juling Guntram
+Auteur  : Troller Fabian, Juling Guntram
 Date    : 2018.11.06
-Description : Code javascript cité des metiers
+Description : Code PHP cité des metiers
  */
 
-const ADDR = "10.5.51.30/EscapeGame";// ip du serveur
+const ADDR = "http://10.5.51.30/EscapeGame";// ip du serveur
 const DEFAULT_VALUE = ["A","9"];// solutions par defaut
 
 // recupere les solutions du serveur sous forme de JSON
 function getSolutionJSON()
 {
-  $ping = curl_init("http://" . ADDR . "/soluce.php");// prepare l'adresse a atteidre
+  $ping = curl_init(ADDR . "/soluce.php");// prepare l'adresse a atteidre
   curl_setopt($ping,CURLOPT_RETURNTRANSFER,true);
   if (curl_exec($ping)==true)// verifie si l'adresse est atteignable
   {
-    $json = file_get_contents("http://" . ADDR . "/soluce.php");
+    $json = file_get_contents(ADDR . "/soluce.php");
     $obj = json_decode($json);
 
     if ($obj != null)
