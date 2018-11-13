@@ -1,4 +1,11 @@
-﻿using System.Diagnostics;
+﻿/*
+ * Auteur : Dylan Schito, Kilian Perisset, Robin Brunazzi
+ * Date : 02.10.2018
+ * Projet : Cité des métiers
+ * Description : Classe "parent" permettant de gérer tout type de forme animée dont 
+                 les objets vont hériter (poisson, bulle, etc.)
+ */
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using System;
@@ -87,7 +94,8 @@ namespace CdM_Aquarium
         /// <param name="y0">Y Début </param>
         /// <param name="xE">X Fin </param>
         /// <param name="yE">Y Fin </param>
-        /// <param name="largeur">Taille de la forme </param>
+        /// <param name="largeur">Largeur de la forme </param>
+        /// <param name="hauteur">Hauteur de la forme </param>
         /// <param name="vitesse">Vitesse (représentée par une durée) </param>
         public FormeAnimee(double x0, double y0, double xE, double yE, double largeur, double hauteur, double vitesse)
         {
@@ -148,17 +156,4 @@ namespace CdM_Aquarium
         abstract public void Paint(object sender, PaintEventArgs e);
         #endregion
     }
-
-    // Exemple d'héritage de FormeAnimee et d'override de la méthode Paint
-    //class Carre : FormeAnimee
-    //{
-    //    public Carre() : base()
-    //    {
-    //    }
-
-    //    public override void Paint(object sender, PaintEventArgs e)
-    //    {
-    //        e.Graphics.DrawRectangle(Pens.Blue, Position.X, Position.Y, this.BoiteDeCollision.Width, this.BoiteDeCollision.Height);
-    //    }
-    //}
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,22 +27,24 @@
     </style>
   </head>
   <body>
-    <video muted>
+    <video preload="auto">
         <source src="happy.mp4" type="video/mp4" />
         Your browser does not support HTML5 video. Please upgrade your browser!
     </video>
 
     <script>
       let video = document.querySelector('video');
+      const SERVER_ENDPOINT = 'http://10.5.51.30/EscapeGame';
 
       setInterval(() => {
 
-        fetch('http://10.5.51.30/EscapeGame/video.php', {
+        fetch(`${SERVER_ENDPOINT}/video.php`, {
           method: 'GET'
         })
           .then(response => {
             response.json()
               .then(json => {
+                console.log(json)
                 if (json == 0) {
                   video.pause();
                 } else {
