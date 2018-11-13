@@ -95,13 +95,17 @@ function checkServer() {
         if (jsonData.step1 != null)
         {
             step1Validated = true;
-            document.getElementById('sol0').innerHTML = jsonData.soluce1
+            document.getElementById('sol0').innerHTML = jsonData.soluce1;
+        } else {
+          document.getElementById('sol0').innerHTML ="?";
         }
 
         if (jsonData.step2 != null)
         {
             step2Validated = true;
-            document.getElementById('sol1').innerHTML = jsonData.soluce2
+            document.getElementById('sol1').innerHTML = jsonData.soluce2;
+        } else {
+          document.getElementById('sol1').innerHTML ="?";
         }
 
         if (step1Validated && step2Validated)
@@ -109,6 +113,7 @@ function checkServer() {
             document.getElementById('B0').removeAttribute("disabled");
             document.getElementById('B1').removeAttribute("disabled");
             document.getElementById('B2').removeAttribute("disabled");
+            //clearInterval(checkServerInterval);
         }
         localStorage.setItem("oldIdGame", jsonData.idGame);
     }
