@@ -1,9 +1,9 @@
 ﻿/*
-  * Auteurs : Schito Dylan, Périsset Kilian, Brunazzi Robin
-  * Date : 18.09.2018
-  * Projet : Cité des métiers
-  * Description : 
-  */
+ * Auteur : Dylan Schito, Robin Brunazzi, Kilian Perisset
+ * Date : 02.10.2018
+ * Projet : Cité des métiers
+ * Description : Classe définissant les évènements et méthodes relatives à la forme/vue principale.
+ */
 
 
 using System;
@@ -24,8 +24,8 @@ namespace CdM_Aquarium
         {
             this.Icon = Properties.Resources.icon_poisson;
             DoubleBuffered = true;
-            //Aquarium aquarium = new Aquarium(this);
-            SceneParDefaut scene1 = new SceneParDefaut(this);
+            Aquarium aquarium = new Aquarium(this);
+            //SceneParDefaut scene1 = new SceneParDefaut(this);
 
         }
     }

@@ -78,13 +78,13 @@ header button.btn {
 
 #timer {
   position: fixed;
-  width: 300px;
-  height: 200px;
+  width: 250px;
+  height: 150px;
   text-align: center;
   right: 0px;
   bottom: 0px;
   background: #173463;
-  line-height: 200px;
+  line-height: 150px;
   font-size: 3em;
   border-top: 3px solid white;
   border-left: 3px solid white;

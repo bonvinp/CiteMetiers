@@ -127,7 +127,7 @@ function displayStepDate(selector, date) {
       minutes = `0${minutes}`
     }
 
-    document.querySelector(selector).innerHTML = `commencée à <b>${riddle.getHours()}h${minutes}</b>`
+    document.querySelector(selector).innerHTML = `commencée à <b>${riddle.getHours()-1}h${minutes}</b>`
   } else {
     document.querySelector(selector).innerHTML = `énigme pas commencée`
   }
@@ -172,6 +172,13 @@ function RefreshView(json) {
   //laby status
   if (json.step2) {
     document.querySelector('#laby-status').innerHTML = `Labyrinthe réussi !`
+  }
+
+  //is party finish
+  if (json.end) {
+    document.querySelector('#party-finish').innerHTML = `La partie est terminée !`
+    EndTimer();
+    StartVideo(false);
   }
 }
 
