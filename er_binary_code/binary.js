@@ -7,6 +7,9 @@ const DEFAULT_CHAR = "_"; // caractere par defaut
 var listBin = [DEFAULT_CHAR, DEFAULT_CHAR, DEFAULT_CHAR, DEFAULT_CHAR, DEFAULT_CHAR, DEFAULT_CHAR, DEFAULT_CHAR, DEFAULT_CHAR];// initialisation de la table des solutions binaires avec les caracteres par defaut
 const LIMIT_BIN = 8; // taille limite de la liste binaire
 
+
+let checkServerInterval = setInterval(checkServer, 2000);
+let checkNewGameInterval = null;
 // Permet d'inserer la valeur dans la liste en decalant la liste
 function ListSetter(value) {
     listBin.push(value);
@@ -63,11 +66,17 @@ function UpdateView(listBin) {
 function Win() {
 
     var Address = ADDR + "/end.php";
-	req.open('GET', Address, false);
+    clearInterval(checkServerInterval);
+	  req.open('GET', Address, false);
     req.send(null);
-	
-    localStorage.clear();
-    console.log("GAGNER");
+    if(req.status === 200 || req.status === 201)
+    {
+      document.getElementById("game").setAttribute("hidden",true);
+      document.getElementById('endgame').removeAttribute("hidden");
+    }
+    checkNewGameInterval = setInterval(checkNewGame, 2000);
+
+    console.log("GAGNÉ");
 }
 
 const req = new XMLHttpRequest();
@@ -75,6 +84,8 @@ const req = new XMLHttpRequest();
 function checkServer() {
 
     var  Address = ADDR + "/soluce.php";
+	  req.open('GET', Address, false);
+    req.send(null);
 
     if (req.status === 200) {
         var jsonData = JSON.parse(req.responseText);
@@ -99,7 +110,22 @@ function checkServer() {
             document.getElementById('B1').removeAttribute("disabled");
             document.getElementById('B2').removeAttribute("disabled");
         }
+        localStorage.setItem("oldIdGame", jsonData.idGame);
     }
 }
+function checkNewGame(){
+    var  Address = ADDR + "/soluce.php";
+	  req.open('GET', Address, false);
+    req.send(null);
 
-setInterval(checkServer, 2000);
+    if (req.status === 200) {
+        var jsonData = JSON.parse(req.responseText);
+        let oldIdGame = localStorage.getItem("oldIdGame");
+
+        if (jsonData.idGame != oldIdGame && jsonData.step1 == null && jsonData.step2 == null && jsonData.end == null) {
+          clearInterval(checkNewGameInterval);
+          document.location.reload();
+        }
+    }
+
+}
