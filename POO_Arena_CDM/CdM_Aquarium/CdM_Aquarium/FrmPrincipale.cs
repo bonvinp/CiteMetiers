@@ -24,8 +24,8 @@ namespace CdM_Aquarium
         {
             this.Icon = Properties.Resources.icon_poisson;
             DoubleBuffered = true;
-            //Aquarium aquarium = new Aquarium(this);
-            SceneParDefaut scene1 = new SceneParDefaut(this);
+            Aquarium aquarium = new Aquarium(this);
+            //SceneParDefaut scene1 = new SceneParDefaut(this);
 
         }
     }

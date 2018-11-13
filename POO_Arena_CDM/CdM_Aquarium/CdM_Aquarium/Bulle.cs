@@ -22,7 +22,7 @@ namespace CdM_Aquarium
 
         #region Propriétés
         public Color Color { get => _color; set => _color = value; }
-        public bool Explose { get => _explose; private set => _explose = value; }
+        public bool Explose { get => _explose; set => _explose = value; }
         public bool Change { get => _change; set => _change = value; }
 
         #endregion
